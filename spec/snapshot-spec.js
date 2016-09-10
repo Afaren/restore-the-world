@@ -22,33 +22,29 @@ ${id_3}
 2016/09/02 22:31:02
 cat1 12 8 3 4`;
 
+    const snapshotOfId_1 = 'cat1 10 9';
+    const snapshotOfId_2 = 'cat1 15 12\ncat2 2 3';
+    const snapshotOfId_3 = 'cat1 12 8\ncat2 2 3';
 
-    it('should return snapshots of animals when given a id', () => {
+    it('should return snapshots of animals when given a selectedId', () => {
+      const testInput = [
+        {
+          id: id_1,
+          snapshot: snapshotOfId_1
+        },
+        {
+          id: id_2,
+          snapshot: snapshotOfId_2
+        },
+        {
+          id:id_3,
+          snapshot: snapshotOfId_3
+        }
+      ];
 
-      const expectedSnapshots = 'cat1 15 12\ncat2 2 3';
-      const selectedId = id_3;
-
-      expect(getSnapshot(historyData, selectedId)).toEqual(expectedSnapshots);
-
-    });
-
-    it('should return snapshots of animals when given another id', () => {
-
-      const expectedSnapshots = 'cat1 10 9';
-      const selectedId = id_1;
-
-      expect(getSnapshot(historyData, selectedId)).toEqual(expectedSnapshots);
-
-    });
-
-
-    it('should return snapshots of animals when given third id', () => {
-
-      const expectedSnapshots = 'cat1 12 8\ncat2 2 3';
-      const selectedId = id_2;
-
-      expect(getSnapshot(historyData, selectedId)).toEqual(expectedSnapshots);
-
+      testInput.forEach(input => {
+        expect(getSnapshot(historyData, input.id)).toEqual(input.snapshot);
+      });
     });
   });
 
