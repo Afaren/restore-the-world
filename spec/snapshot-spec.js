@@ -33,8 +33,8 @@ ${time_3}
 ${coordinate_3}`;
 
   const snapshotOfId_1 = 'cat1 10 9';
-  const snapshotOfId_2 = 'cat1 15 12\ncat2 2 3';
-  const snapshotOfId_3 = 'cat1 12 8\ncat2 2 3';
+  const snapshotOfId_2 = 'cat1 12 8\ncat2 2 3';
+  const snapshotOfId_3 = 'cat1 15 12\ncat2 2 3';
 
 
   describe('getSnapshot', ()=> {
