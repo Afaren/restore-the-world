@@ -61,7 +61,6 @@ function buildRecordBase(records) {
 
     base.push(Object.assign({}, records[i], {coordinateChange: assembly}));
   }
-console.log(JSON.stringify(base,null, 2))
   return base;
 
   function getCurrentCoordinateInRecords() {
@@ -105,7 +104,10 @@ function assembleCoordinateChange(previous, current) {
 }
 
 function buildSnapshotOfSelectedID(recordBase, id) {
-
+  let selectedRecord = recordBase.find(record => record.id === id);
+  return selectedRecord.coordinateChange.map(item => {
+    return `${item.animal} ${item.position[0]} ${item.position[1]}`;
+  }).join('\n');
 }
 
 module.exports = {
