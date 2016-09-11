@@ -54,7 +54,19 @@ fdescribe('validation', ()=> {
       ];
       illegalPositions.forEach(each=> {
         expect(isLegalPosition(each)).toBeFalsy();
-      })
+      });
     });
-  })
+
+    it('should be true when given length of position is 2 or 4', ()=> {
+      const legalPositions = [
+        [1, 1],
+        [1, 1, 1, 1]
+      ];
+      legalPositions.forEach(each=> {
+        expect(isLegalPosition(each)).toBeTruthy();
+      });
+
+    });
+  });
 });
+

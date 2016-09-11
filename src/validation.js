@@ -22,7 +22,12 @@ function isLegalFormatTime(time) {
 
 
 function isLegalPosition(position) {
-
+  const length = position.length;
+  const legalLength_1 = 2;
+  const lengthLength_2 = 4;
+  if (length === legalLength_1 || length === lengthLength_2)
+    return true;
+  return false;
 }
 
 module.exports = {
