@@ -4,7 +4,7 @@
 'use strict';
 
 function isLegalFormatID(id) {
-
+  if (id === undefined) return false;
   if (isEmptyString() || isContainingSpace())
     return false;
   return true;
@@ -14,7 +14,7 @@ function isLegalFormatID(id) {
   }
 
   function isEmptyString() {
-    return id.length < 1;
+    return id !== undefined && id.length < 1;
   }
 
 }
@@ -44,13 +44,17 @@ function isLegalCoordinateChange(coordinateChange) {
   });
 
   function isNotEmptyString(string) {
-    return string.length > 1;
+    return string !== undefined && string.length > 1;
   }
 }
 
 
 function isLegalRecords(records) {
-
+  return records.every(each=> {
+    return isLegalFormatID(each.id)
+      && isLegalFormatTime(each.time)
+      && isLegalCoordinateChange(each.coordinateChange);
+  })
 }
 
 module.exports = {
