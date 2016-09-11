@@ -48,7 +48,13 @@ function splitHistoryToRecords(historyData) {
   return records;
 
 }
+
+function buildRecordBase(records) {
+
+}
+
 module.exports = {
   getSnapshot,
-  splitHistoryToRecords
+  splitHistoryToRecords,
+  buildRecordBase,
 };
