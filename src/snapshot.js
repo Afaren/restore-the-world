@@ -86,13 +86,13 @@ function buildRecordBase(records) {
 }
 
 function assembleCoordinateChange(previous, current) {
-  let previousClone = deepCopy(previous);
-  let assembly = previousClone.reduce((acc, cur) => {
-    let found = current.find(v => v.animal === cur.animal);
-    if (found) {
-      let p = found.position;
-      found.position = [p[0] + p[2], p[1] + p[3]];
-      acc.push(found);
+  let previousClone = deepClone(previous);
+  let previousChangeAssembly = previousClone.reduce((acc, cur) => {
+    let exist = current.find(v => v.animal === cur.animal);
+    if (exist) {
+      let p = exist.position;
+      exist.position = [p[0] + p[2], p[1] + p[3]];
+      acc.push(exist);
     }
     else {
       acc.push(cur);
@@ -100,17 +100,17 @@ function assembleCoordinateChange(previous, current) {
     return acc;
   }, []);
 
-  assembly = current.reduce((acc, cur) => {
-    let found = assembly.find(v => v.animal === cur.animal);
+  const assembly = current.reduce((acc, cur) => {
+    let found = previousChangeAssembly.find(v => v.animal === cur.animal);
     if (!found) {
-      assembly.push(cur)
+      previousChangeAssembly.push(cur)
     }
-    return assembly;
+    return previousChangeAssembly;
   }, []);
 
   return assembly;
 
-  function deepCopy(arr) {
+  function deepClone(arr) {
     return JSON.parse(JSON.stringify(arr));
   }
 
