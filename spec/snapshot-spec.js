@@ -60,9 +60,15 @@ ${coordinate_3}`;
     });
 
     it('should report Invalid history when given format of historyData is not legal', ()=> {
-      const illegalFormatHistoryData = `${id_1}${time_1}${coordinate_1}`;
+      const illegalFormatHistoryDatas = [
+        `${id_1}${time_1}${coordinate_1}`,
+        `${id_1}\n${coordinate_1}`,
+        `${time_1}\n${coordinate_1}`
+      ];
 
-      expect(getSnapshot(illegalFormatHistoryData, id_1)).toEqual('Invalid format');
+      illegalFormatHistoryDatas.forEach(each=> {
+        expect(getSnapshot(each, id_1)).toEqual('Invalid format');
+      })
 
     })
   });
