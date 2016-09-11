@@ -49,9 +49,14 @@ function isLegalCoordinateChange(coordinateChange) {
 }
 
 
+function isLegalRecords(records) {
+
+}
+
 module.exports = {
   isLegalFormatID,
   isLegalFormatTime,
   isLegalPosition,
-  isLegalCoordinateChange
+  isLegalCoordinateChange,
+  isLegalRecords
 };
