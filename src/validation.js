@@ -36,8 +36,15 @@ function isLegalPosition(position) {
   return false;
 }
 
+
+function isLegalCoordinateChange(coordinateChange) {
+
+}
+
+
 module.exports = {
   isLegalFormatID,
   isLegalFormatTime,
-  isLegalPosition
+  isLegalPosition,
+  isLegalCoordinateChange
 };

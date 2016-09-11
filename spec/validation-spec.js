@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import {isLegalFormatID, isLegalFormatTime, isLegalPosition} from '../src/validation';
+import {isLegalFormatID, isLegalFormatTime, isLegalPosition, isLegalCoordinateChange} from '../src/validation';
 
 
 fdescribe('validation', ()=> {
@@ -68,5 +68,31 @@ fdescribe('validation', ()=> {
 
     });
   });
+
+  describe('isLegalCoordinateChange', ()=> {
+    it('should be false when given coordinateChange has illegal format', ()=> {
+      const illegalCoordinateChange = [
+        {
+          animal: 'cat1',
+          position: []
+        }, {
+          animal: 'cat1',
+          position: [10]
+        }, {
+          animal: 'cat1',
+          position: [10, 9, 3]
+        }, {
+          animal: 'cat1',
+          position: [10, 9, 3, 5, 7]
+        }
+      ];
+      illegalCoordinateChange.forEach(each=>{
+        expect(isLegalCoordinateChange(each)).toBeFalsy();
+      })
+
+    })
+
+  });
+
 });
 
