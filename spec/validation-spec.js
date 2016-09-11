@@ -12,7 +12,7 @@ import {
 } from '../src/validation';
 
 
-fdescribe('validation', ()=> {
+describe('validation', ()=> {
   describe('isLegalFormatID', ()=> {
     it('should return false when given id contains space', ()=> {
       const idContainingSpace = 'xxxxx-88888-u uuuu';
