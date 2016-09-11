@@ -167,8 +167,8 @@ ${coordinate_3}`;
     });
   });
 
-  fdescribe('assembleCoordinateChange', ()=> {
-    it('should return a coordinateChange as result when given previous and current coordinateChange to calculate', ()=> {
+  describe('assembleCoordinateChange', ()=> {
+    fit('should return a coordinateChange as result when given previous and current coordinateChange to calculate', ()=> {
 
       const previous = [{
         animal: 'cat1',
@@ -179,7 +179,7 @@ ${coordinate_3}`;
         position: [10, 9, 2, -1]
       }];
 
-      const expectedCoordinateChange = {animal: 'cat1', position: [12, 8]};
+      const expectedCoordinateChange = [{animal: 'cat1', position: [12, 8]}];
 
       expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
 

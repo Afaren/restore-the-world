@@ -84,23 +84,27 @@ function buildRecordBase(records) {
     console.log(JSON.stringify(base, null, 2));
   }
 }
-/*
- input :
- const previous = [{
-   animal: 'cat1',
-   position: [10, 9]
- }];
- const current = [{
-   animal: 'cat1',
-   position: [10, 9, 2, -1]
- }];
- output:
- [{
-   animal: 'cat1',
-   position: [12, 8]
- }];
- */
+
 function assembleCoordinateChange(previous, current) {
+  let previousClone = deepCopy(previous);
+  const assembly = previousClone.reduce((acc, cur) => {
+    let found = current.find(v => v.animal === cur.animal);
+    if (found) {
+      let p = found.position;
+      found.position = [p[0] + p[2], p[1] + p[3]];
+      acc.push(found);
+    }
+    else {
+      acc.push(cur);
+    }
+    return acc;
+  }, []);
+
+  return assembly;
+
+  function deepCopy(arr) {
+    return JSON.parse(JSON.stringify(arr));
+  }
 
 }
 
