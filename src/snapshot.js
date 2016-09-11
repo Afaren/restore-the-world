@@ -18,6 +18,37 @@ function getSnapshot(historyData, id) {
   if (id === id_3)  return snapshotOfId_3;
 }
 
+function splitHistoryToRecords(historyData) {
+
+  const delimiterOfRecord = '\n\n';
+  const delimiterOfLine = '\n';
+  const delimiterOfChunk = ' ';
+
+  const rawRecords = historyData.split(delimiterOfRecord);
+
+  const records = rawRecords.map(rawRecord => {
+    const lines = rawRecord.split(delimiterOfLine);
+
+    const coordinateChange = lines.slice(2).map(line => {
+      const chunk = line.split(delimiterOfChunk);
+      const position = chunk.slice(1).map(v => Number.parseInt(v));
+      return {
+        animal: chunk[0],
+        position
+      }
+    });
+
+    return {
+      id: lines[0],
+      time: lines[1],
+      coordinateChange: coordinateChange
+    };
+  });
+
+  return records;
+
+}
 module.exports = {
-  getSnapshot
+  getSnapshot,
+  splitHistoryToRecords
 };
