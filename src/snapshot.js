@@ -105,6 +105,10 @@ function assembleCoordinateChange(previous, current) {
 
 function buildSnapshotOfSelectedID(recordBase, id) {
   let selectedRecord = recordBase.find(record => record.id === id);
+  if(!selectedRecord){
+    const ERROR_MSG = 'id not found';
+    return ERROR_MSG;
+  }
   return selectedRecord.coordinateChange
     .sort((a, b) => a.animal > b.animal)
     .map(item => {
