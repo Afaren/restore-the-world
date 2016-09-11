@@ -12,5 +12,9 @@ describe('validation', ()=> {
       var idContainingSpace = 'xxxxx-88888-u uuuu';
       expect(isLegalFormatID(idContainingSpace)).toBeFalsy();
     });
+    it('should return false when given id is en empty string',()=> {
+      var idOfEmptyString = '';
+      expect(isLegalFormatID(idOfEmptyString)).toBeFalsy();
+    });
   })
 });

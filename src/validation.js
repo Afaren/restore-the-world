@@ -4,6 +4,8 @@
 'use strict';
 
 function isLegalFormatID(id) {
+  if (id.length < 1)
+    return false;
   const SPACE = ' ';
   return id.indexOf(SPACE) < -1;
 }
