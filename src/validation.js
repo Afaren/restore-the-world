@@ -4,19 +4,11 @@
 'use strict';
 
 function isLegalFormatID(id) {
-  if (id === undefined) return false;
-  if (isEmptyString() || isContainingSpace())
-    return false;
-  return true;
+  return isNotEmptyString(id) && isNotContainingSpace();
 
-  function isContainingSpace() {
-    return /\s/.test(id);
+  function isNotContainingSpace() {
+    return !/\s/.test(id);
   }
-
-  function isEmptyString() {
-    return id !== undefined && id.length < 1;
-  }
-
 }
 
 
@@ -43,11 +35,11 @@ function isLegalCoordinateChange(coordinateChange) {
     return isNotEmptyString(each.animal) && isLegalPosition(each.position);
   });
 
-  function isNotEmptyString(string) {
-    return string !== undefined && string.length > 1;
-  }
 }
 
+function isNotEmptyString(string) {
+  return string !== undefined && string.length > 0;
+}
 
 function isLegalRecords(records) {
   return records.every(each=> {
