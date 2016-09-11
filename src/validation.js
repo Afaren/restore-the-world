@@ -20,7 +20,13 @@ function isLegalFormatTime(time) {
   return timeRegex.test(time);
 }
 
+
+function isLegalPosition(position) {
+
+}
+
 module.exports = {
   isLegalFormatID,
-  isLegalFormatTime
+  isLegalFormatTime,
+  isLegalPosition
 };

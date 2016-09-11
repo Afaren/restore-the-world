@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import {isLegalFormatID, isLegalFormatTime} from '../src/validation';
+import {isLegalFormatID, isLegalFormatTime, isLegalPosition} from '../src/validation';
 
 
 fdescribe('validation', ()=> {
@@ -37,10 +37,24 @@ fdescribe('validation', ()=> {
       expect(isLegalFormatTime(time)).toBeTruthy();
     });
 
-    it('should be false if given time has illegal format',()=> {
-      const time ='2016/9/2 22:30:46';
+    it('should be false if given time has illegal format', ()=> {
+      const time = '2016/9/2 22:30:46';
       expect(isLegalFormatTime(time)).toBeFalsy();
     });
 
   });
+
+  describe('isLegalPosition', ()=> {
+    it('should be false when given length of position is not 2 or 4', ()=> {
+      const illegalPositions = [
+        [],
+        [1],
+        [1, 1, 1],
+        [1, 1, 1, 1, 1]
+      ];
+      illegalPositions.forEach(each=> {
+        expect(isLegalPosition(each)).toBeFalsy();
+      })
+    });
+  })
 });
