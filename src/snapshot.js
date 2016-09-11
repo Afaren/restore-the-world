@@ -87,7 +87,7 @@ function buildRecordBase(records) {
 
 function assembleCoordinateChange(previous, current) {
   let previousClone = deepCopy(previous);
-  const assembly = previousClone.reduce((acc, cur) => {
+  let assembly = previousClone.reduce((acc, cur) => {
     let found = current.find(v => v.animal === cur.animal);
     if (found) {
       let p = found.position;
@@ -98,6 +98,14 @@ function assembleCoordinateChange(previous, current) {
       acc.push(cur);
     }
     return acc;
+  }, []);
+
+  assembly = current.reduce((acc, cur) => {
+    let found = assembly.find(v => v.animal === cur.animal);
+    if (!found) {
+      assembly.push(cur)
+    }
+    return assembly;
   }, []);
 
   return assembly;

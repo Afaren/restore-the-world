@@ -210,6 +210,33 @@ ${coordinate_3}`;
 
       expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
     })
+
+    it('should return a coordinateChange contains all coordinates of current', ()=> {
+
+      const previous = [{
+        animal: 'cat1',
+        position: [10, 9]
+      }];
+      const current = [{
+        animal: 'cat1',
+        position: [10, 9, 2, -1]
+      }, {
+        animal: 'cat2',
+        position: [2, 3]
+      }];
+
+      const expectedCoordinateChange = [
+        {
+          animal: 'cat1',
+          position: [12, 8]
+        }, {
+          animal: 'cat2',
+          position: [2, 3]
+        }];
+
+      expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
+    })
+
   });
 
 
