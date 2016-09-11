@@ -86,12 +86,24 @@ fdescribe('validation', ()=> {
           position: [10, 9, 3, 5, 7]
         }
       ];
-      illegalCoordinateChange.forEach(each=>{
-        expect(isLegalCoordinateChange(each)).toBeFalsy();
-      })
 
-    })
+      expect(isLegalCoordinateChange(illegalCoordinateChange)).toBeFalsy();
+    });
 
+    it('should be true when given coordinateChange has legal format', ()=> {
+      const legalCoordinateChange = [
+        {
+          animal: 'cat1',
+          position: [10, 9]
+        }, {
+          animal: 'cat1',
+          position: [10, 9, 2, 3]
+        }
+      ];
+
+      expect(isLegalCoordinateChange(legalCoordinateChange)).toBeTruthy();
+
+    });
   });
 
 });

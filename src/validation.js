@@ -39,6 +39,13 @@ function isLegalPosition(position) {
 
 function isLegalCoordinateChange(coordinateChange) {
 
+  return coordinateChange.every(each => {
+    return isNotEmptyString(each.animal) && isLegalPosition(each.position);
+  });
+
+  function isNotEmptyString(string) {
+    return string.length > 1;
+  }
 }
 
 
