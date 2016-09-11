@@ -50,24 +50,17 @@ function splitHistoryToRecords(historyData) {
 }
 
 function buildRecordBase(records) {
-
   const base = [];
   base.push(records[0]);
 
-  printBase();
   let previous, current, assembly;
   for (let i = 1, length = records.length; i < length; i++) {
     previous = getLastCoordinateInBase();
     current = getCurrentCoordinateInRecords();
     assembly = assembleCoordinateChange(previous, current);
-    console.log('---------assemble------------')
-    console.log(assembly)
-    console.log('---------previous------------')
-    console.log(previous)
-    base.push(Object.assign({}, ...records[i], assembly));
-  }
 
-  printBase();
+    base.push(Object.assign({}, records[i], {coordinateChange: assembly}));
+  }
 
   return base;
 
@@ -77,11 +70,6 @@ function buildRecordBase(records) {
 
   function getLastCoordinateInBase() {
     return base[base.length - 1].coordinateChange;
-  }
-
-  function printBase() {
-    console.log('print base ---');
-    console.log(JSON.stringify(base, null, 2));
   }
 }
 
