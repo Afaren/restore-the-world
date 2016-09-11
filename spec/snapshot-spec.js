@@ -1,7 +1,7 @@
 /**
  * Created by afaren on 9/10/16.
  */
-import {getSnapshot, splitHistoryToRecords, buildRecordBase, calculateCoordinateChange} from '../src/snapshot';
+import {getSnapshot, splitHistoryToRecords, buildRecordBase, assembleCoordinateChange} from '../src/snapshot';
 
 describe('snapshot', () => {
   const id_1 = 'e4e87cb2-8e9a-4749-abb6-26c59344dfee';
@@ -167,6 +167,25 @@ ${coordinate_3}`;
     });
   });
 
+  fdescribe('assembleCoordinateChange', ()=> {
+    it('should return a coordinateChange as result when given previous and current coordinateChange to calculate', ()=> {
+
+      const previous = [{
+        animal: 'cat1',
+        position: [10, 9]
+      }];
+      const current = [{
+        animal: 'cat1',
+        position: [10, 9, 2, -1]
+      }];
+
+      const expectedCoordinateChange = {animal: 'cat1', position: [12, 8]};
+
+      expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
+
+    });
+
+  });
 
 
 });

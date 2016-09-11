@@ -51,10 +51,62 @@ function splitHistoryToRecords(historyData) {
 
 function buildRecordBase(records) {
 
+  const base = [];
+  base.push(records[0]);
+
+  printBase();
+  let previous, current, assembly;
+  for (let i = 1, length = records.length; i < length; i++) {
+    previous = getLastCoordinateInBase();
+    current = getCurrentCoordinateInRecords();
+    assembly = assembleCoordinateChange(previous, current);
+    console.log('---------assemble------------')
+    console.log(assembly)
+    console.log('---------previous------------')
+    console.log(previous)
+    base.push(Object.assign({}, ...records[i], assembly));
+  }
+
+  printBase();
+
+  return base;
+
+  function getCurrentCoordinateInRecords() {
+    return records[base.length].coordinateChange;
+  }
+
+  function getLastCoordinateInBase() {
+    return base[base.length - 1].coordinateChange;
+  }
+
+  function printBase() {
+    console.log('print base ---');
+    console.log(JSON.stringify(base, null, 2));
+  }
+}
+/*
+ input :
+ const previous = [{
+   animal: 'cat1',
+   position: [10, 9]
+ }];
+ const current = [{
+   animal: 'cat1',
+   position: [10, 9, 2, -1]
+ }];
+ output:
+ [{
+   animal: 'cat1',
+   position: [12, 8]
+ }];
+ */
+function assembleCoordinateChange(previous, current) {
+
 }
 
 module.exports = {
   getSnapshot,
   splitHistoryToRecords,
   buildRecordBase,
+  assembleCoordinateChange
 };
