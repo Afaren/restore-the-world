@@ -58,6 +58,13 @@ ${coordinate_3}`;
         expect(getSnapshot(historyData, input.id)).toEqual(input.snapshot);
       });
     });
+
+    it('should report Invalid history when given format of historyData is not legal', ()=> {
+      const illegalFormatHistoryData = `${id_1}${time_1}${coordinate_1}`;
+
+      expect(getSnapshot(illegalFormatHistoryData, id_1)).toEqual('Invalid format');
+
+    })
   });
 
   describe('splitHistoryToRecords', ()=> {

@@ -2,9 +2,13 @@
  * Created by afaren on 9/10/16.
  */
 'use strict';
+import {isLegalRecords} from './validation';
 
 function getSnapshot(historyData, id) {
   const records = splitHistoryToRecords(historyData);
+  if (!isLegalRecords(records)) {
+    return 'Invalid format';
+  }
   const recordBase = buildRecordBase(records);
   return buildSnapshotOfSelectedID(recordBase, id);
 }
