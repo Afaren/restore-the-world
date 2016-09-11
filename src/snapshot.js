@@ -105,9 +105,12 @@ function assembleCoordinateChange(previous, current) {
 
 function buildSnapshotOfSelectedID(recordBase, id) {
   let selectedRecord = recordBase.find(record => record.id === id);
-  return selectedRecord.coordinateChange.map(item => {
-    return `${item.animal} ${item.position[0]} ${item.position[1]}`;
-  }).join('\n');
+  return selectedRecord.coordinateChange
+    .sort((a, b) => a.animal > b.animal)
+    .map(item => {
+      return `${item.animal} ${item.position[0]} ${item.position[1]}`;
+    })
+    .join('\n');
 }
 
 module.exports = {
