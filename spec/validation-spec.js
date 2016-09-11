@@ -3,20 +3,20 @@
  */
 'use strict';
 
-import {isLegalFormatID} from '../src/validation';
+import {isLegalFormatID, isLegalFormatTime} from '../src/validation';
 
 
-describe('validation', ()=> {
-  fdescribe('isLegalFormatID', ()=> {
-    it('should return false when given id contains space',()=> {
+fdescribe('validation', ()=> {
+  describe('isLegalFormatID', ()=> {
+    it('should return false when given id contains space', ()=> {
       const idContainingSpace = 'xxxxx-88888-u uuuu';
       expect(isLegalFormatID(idContainingSpace)).toBeFalsy();
     });
-    it('should return false when given id is an empty string',()=> {
+    it('should return false when given id is an empty string', ()=> {
       const idOfEmptyString = '';
       expect(isLegalFormatID(idOfEmptyString)).toBeFalsy();
     });
-    it('should be true when given id is not empty and not containing space',()=> {
+    it('should be true when given id is not empty and not containing space', ()=> {
       const legalIDs = [
         'xxxxxxxxxxxxxxxxxxx',
         '8888888888888888888',
@@ -25,9 +25,16 @@ describe('validation', ()=> {
         '1',
         'x'
       ];
-      legalIDs.forEach(each =>{
+      legalIDs.forEach(each => {
         expect(isLegalFormatID(each)).toBeTruthy();
       })
     })
-  })
+  });
+
+  describe('isLegalFormatTime', ()=> {
+    it('should be true if given time has legal format', ()=> {
+      const time = '2016/09/02 22:30:46';
+      expect(isLegalFormatTime(time)).toBeTruthy();
+    });
+  });
 });

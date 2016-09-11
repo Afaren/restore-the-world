@@ -13,6 +13,14 @@ function isLegalFormatID(id) {
   return true;
 }
 
+
+function isLegalFormatTime(time) {
+  // format YYYY/mm/dd hh:MM:ss
+  const timeRegex = /^(?:19|20)[0-9][0-9]\/(?:(?:0[1-9])|(?:1[0-2]))\/(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
+  return timeRegex.test(time);
+}
+
 module.exports = {
-  isLegalFormatID
+  isLegalFormatID,
+  isLegalFormatTime
 };
