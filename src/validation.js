@@ -6,8 +6,11 @@
 function isLegalFormatID(id) {
   if (id.length < 1)
     return false;
-  const SPACE = ' ';
-  return id.indexOf(SPACE) < -1;
+
+  if (/\s/.test(id))
+    return false;
+
+  return true;
 }
 
 module.exports = {
