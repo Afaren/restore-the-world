@@ -36,5 +36,11 @@ fdescribe('validation', ()=> {
       const time = '2016/09/02 22:30:46';
       expect(isLegalFormatTime(time)).toBeTruthy();
     });
+
+    it('should be false if given time has illegal format',()=> {
+      const time ='2016/9/2 22:30:46';
+      expect(isLegalFormatTime(time)).toBeFalsy();
+    });
+
   });
 });
