@@ -61,7 +61,7 @@ function buildRecordBase(records) {
 
     base.push(Object.assign({}, records[i], {coordinateChange: assembly}));
   }
-
+console.log(JSON.stringify(base,null, 2))
   return base;
 
   function getCurrentCoordinateInRecords() {
@@ -104,9 +104,14 @@ function assembleCoordinateChange(previous, current) {
 
 }
 
+function buildSnapshotOfSelectedID(recordBase, id) {
+
+}
+
 module.exports = {
   getSnapshot,
   splitHistoryToRecords,
   buildRecordBase,
-  assembleCoordinateChange
+  assembleCoordinateChange,
+  buildSnapshotOfSelectedID
 };
