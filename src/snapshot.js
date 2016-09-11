@@ -6,8 +6,7 @@
 function getSnapshot(historyData, id) {
   const records = splitHistoryToRecords(historyData);
   const recordBase = buildRecordBase(records);
-  const snapshot = buildSnapshotOfSelectedID(recordBase, id);
-  return snapshot;
+  return buildSnapshotOfSelectedID(recordBase, id);
 }
 
 function splitHistoryToRecords(historyData) {
@@ -97,7 +96,7 @@ function assembleCoordinateChange(previous, current) {
 
 function buildSnapshotOfSelectedID(recordBase, id) {
   let selectedRecord = recordBase.find(record => record.id === id);
-  if(!selectedRecord){
+  if (!selectedRecord) {
     const ERROR_MSG = 'id not found';
     return ERROR_MSG;
   }
