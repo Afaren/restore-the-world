@@ -4,13 +4,19 @@
 'use strict';
 
 function isLegalFormatID(id) {
-  if (id.length < 1)
-    return false;
 
-  if (/\s/.test(id))
+  if (isEmptyString() || isContainingSpace())
     return false;
-
   return true;
+
+  function isContainingSpace() {
+    return /\s/.test(id);
+  }
+
+  function isEmptyString() {
+    return id.length < 1;
+  }
+
 }
 
 
