@@ -1,7 +1,7 @@
 /**
  * Created by afaren on 9/10/16.
  */
-import { getSnapshot, splitHistoryToRecords } from '../src/snapshot';
+import {getSnapshot, splitHistoryToRecords} from '../src/snapshot';
 
 describe('snapshot', () => {
   const id_1 = 'e4e87cb2-8e9a-4749-abb6-26c59344dfee';
@@ -55,11 +55,8 @@ ${coordinate_3}`;
   });
 
   describe('splitHistoryToRecords', ()=> {
-    it('should return one record when given historyData contains only single history', ()=> {
+    it('should return records when given historyData', ()=> {
 
-      const singleHistoryData = `${id_1}
-${time_1}
-${coordinate_1}`;
       const expectedRecord = [{
         id: id_1,
         time: time_1,
@@ -69,8 +66,29 @@ ${coordinate_1}`;
             position: [10, 9]
           }
         ]
+      }, {
+        id: id_2,
+        time: time_2,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [10, 9, 2, -1]
+          }, {
+            animal: 'cat2',
+            position: [2, 3]
+          }
+        ]
+      }, {
+        id: id_3,
+        time: time_3,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [12, 8, 3, 4]
+          }]
       }];
-      expect(splitHistoryToRecords(singleHistoryData)).toEqual(expectedRecord);
+
+      expect(splitHistoryToRecords(historyData)).toEqual(expectedRecord);
 
     });
   });
