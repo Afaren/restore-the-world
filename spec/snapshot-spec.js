@@ -294,8 +294,50 @@ ${coordinate_3}`;
         }
       ];
       expectedBuiltSnapshot.forEach(item => {
-        expect(item.snapshot).toEqual(buildSnapshotOfSelectedID(recordBase,item.id));
+        expect(item.snapshot).toEqual(buildSnapshotOfSelectedID(recordBase, item.id));
       })
     });
+    it('should return error message when given a id not existed', ()=> {
+      const recordBase = [
+        {
+          "id": "e4e87cb2-8e9a-4749-abb6-26c59344dfee",
+          "time": "2016/09/02 22:30:46",
+          "coordinateChange": [
+            {
+              "animal": "cat1",
+              "position": [10, 9]
+            }
+          ]
+        }, {
+          "id": "351055db-33e6-4f9b-bfe1-16f1ac446ac1",
+          "time": "2016/09/02 22:30:52",
+          "coordinateChange": [
+            {
+              "animal": "cat1",
+              "position": [12, 8]
+            }, {
+              "animal": "cat2",
+              "position": [2, 3]
+            }]
+        },
+        {
+          "id": "dcfa0c7a-5855-4ed2-bc8c-4accae8bd155",
+          "time": "2016/09/02 22:31:02",
+          "coordinateChange": [
+            {
+              "animal": "cat1",
+              "position": [15, 12]
+            }, {
+              "animal": "cat2",
+              "position": [2, 3]
+            }]
+        }];
+      const badQeury = {
+        id: 'willBeError',
+        errorMessage: 'id not found'
+      };
+      expect(buildSnapshotOfSelectedID(recordBase, badQeury.id)).toEqual(badQeury.errorMessage);
+    });
+
   });
 });
