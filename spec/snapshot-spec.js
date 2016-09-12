@@ -219,7 +219,10 @@ ${coordinate_3}`;
         ]
       }];
 
-      const errMsg = `Conflict found at ${id_3}`;
+      const errMsg = {
+        conflict :true,
+        id: id_3
+      };
 
       expect(buildRecordBase(records)).toEqual(errMsg);
     });
@@ -297,6 +300,21 @@ ${coordinate_3}`;
     })
 
 
+    it('should return conflict when given conflict previous and current', ()=> {
+
+      const previous = [{
+        animal: 'cat1',
+        position: [10, 9]
+      }];
+      const current = [{
+        animal: 'cat1',
+        position: [12, 11, 2, -1]
+      }];
+
+      const expected = {conflict: true};
+
+      expect(assembleCoordinateChange(previous, current)).toEqual(expected);
+    })
   });
 
   describe('buildSnapshotOfSelectedID', () => {
