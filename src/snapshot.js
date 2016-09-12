@@ -104,7 +104,7 @@ function assembleCoordinateChange(previous, current) {
 
   function hasConflict(current, previous) {
     const cp = current.position, pp = previous.position;
-    return cp[0] !== pp[0] && cp[1] !== cp[1];
+    return cp[0] !== pp[0] || cp[1] !== cp[1];
   }
 
   function deepClone(arr) {
