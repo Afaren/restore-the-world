@@ -71,6 +71,7 @@ ${coordinate_3}`;
       })
 
     })
+
     it('should report Conflict when given historyData has conflict in coordinateChange', ()=> {
       const conflictHistoryData = `e4e87cb2-8e9a-4749-abb6-26c59344dfee
 2016/09/02 22:30:46
@@ -242,7 +243,6 @@ cat1 11 8 3 4`;
 
       expect(buildRecordBase(records)).toEqual(errMsg);
     });
-
   });
 
   describe('assembleCoordinateChange', ()=> {
@@ -315,7 +315,6 @@ cat1 11 8 3 4`;
       expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
     })
 
-
     it('should return conflict when given conflict previous and current', ()=> {
 
       const previous = [{
@@ -385,6 +384,7 @@ cat1 11 8 3 4`;
         expect(item.snapshot).toEqual(buildSnapshotOfSelectedID(recordBase, item.id));
       })
     });
+
     it('should return error message when given a id not existed', ()=> {
       const recordBase = [
         {
@@ -426,6 +426,5 @@ cat1 11 8 3 4`;
       };
       expect(buildSnapshotOfSelectedID(recordBase, badQeury.id)).toEqual(badQeury.errorMessage);
     });
-
   });
 });

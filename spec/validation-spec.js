@@ -18,10 +18,12 @@ describe('validation', ()=> {
       const idContainingSpace = 'xxxxx-88888-u uuuu';
       expect(isLegalFormatID(idContainingSpace)).toBeFalsy();
     });
+
     it('should return false when given id is an empty string', ()=> {
       const idOfEmptyString = '';
       expect(isLegalFormatID(idOfEmptyString)).toBeFalsy();
     });
+
     it('should be true when given id is not empty and not containing space', ()=> {
       const legalIDs = [
         'xxxxxxxxxxxxxxxxxxx',
@@ -47,7 +49,6 @@ describe('validation', ()=> {
       const time = '2016/9/2 22:30:46';
       expect(isLegalFormatTime(time)).toBeFalsy();
     });
-
   });
 
   describe('isLegalPosition', ()=> {
@@ -206,7 +207,6 @@ describe('validation', ()=> {
 
 
     })
-
   })
 
 });

@@ -11,13 +11,11 @@ function isLegalFormatID(id) {
   }
 }
 
-
 function isLegalFormatTime(time) {
   // format YYYY/mm/dd hh:MM:ss
   const timeRegex = /^(?:19|20)[0-9][0-9]\/(?:(?:0[1-9])|(?:1[0-2]))\/(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
   return timeRegex.test(time);
 }
-
 
 function isLegalPosition(position) {
   const length = position.length;
@@ -26,7 +24,6 @@ function isLegalPosition(position) {
 
   return length === legalLength_2 || length === legalLength_4;
 }
-
 
 function isLegalCoordinateChange(coordinateChange) {
 
