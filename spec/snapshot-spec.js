@@ -58,6 +58,36 @@ ${coordinate_3}`;
         expect(getSnapshot(historyData, input.id)).toEqual(input.snapshot);
       });
     });
+
+    it('should report Invalid history when given format of historyData is not legal', ()=> {
+      const illegalFormatHistoryDatas = [
+        `${id_1}${time_1}${coordinate_1}`,
+        `${id_1}\n${coordinate_1}`,
+        `${time_1}\n${coordinate_1}`
+      ];
+
+      illegalFormatHistoryDatas.forEach(each=> {
+        expect(getSnapshot(each, id_1)).toEqual('Invalid format');
+      })
+
+    })
+
+    it('should report Conflict when given historyData has conflict in coordinateChange', ()=> {
+      const conflictHistoryData = `e4e87cb2-8e9a-4749-abb6-26c59344dfee
+2016/09/02 22:30:46
+cat1 10 9
+
+351055db-33e6-4f9b-bfe1-16f1ac446ac1
+2016/09/02 22:30:52
+cat1 10 9 2 -1
+cat2 2 3
+
+dcfa0c7a-5855-4ed2-bc8c-4accae8bd155
+2016/09/02 22:31:02
+cat1 11 8 3 4`;
+      const expectedConflict = 'Conflict found at dcfa0c7a-5855-4ed2-bc8c-4accae8bd155';
+      expect(getSnapshot(conflictHistoryData, id_1)).toEqual(expectedConflict);
+    })
   });
 
   describe('splitHistoryToRecords', ()=> {
@@ -100,7 +130,7 @@ ${coordinate_3}`;
   });
 
   describe('buildRecordBase', ()=> {
-    it('should return a recordBase when given records', ()=> {
+    it('should return a recordBase when given valid records', ()=> {
 
       const records = [{
         id: id_1,
@@ -170,6 +200,48 @@ ${coordinate_3}`;
 
       expect(buildRecordBase(records)).toEqual(expectedRecordBase);
 
+    });
+
+    it('should report Error Message when given invalid records', ()=> {
+
+      const records = [{
+        id: id_1,
+        time: time_1,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [10, 9]
+          }
+        ]
+      }, {
+        id: id_2,
+        time: time_2,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [10, 9, 2, -1]
+          }, {
+            animal: 'cat2',
+            position: [2, 3]
+          }
+        ]
+      }, {
+        id: id_3,
+        time: time_3,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [11, 8, 3, 4]
+          }
+        ]
+      }];
+
+      const errMsg = {
+        conflict :true,
+        id: id_3
+      };
+
+      expect(buildRecordBase(records)).toEqual(errMsg);
     });
   });
 
@@ -243,6 +315,21 @@ ${coordinate_3}`;
       expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
     })
 
+    it('should return conflict when given conflict previous and current', ()=> {
+
+      const previous = [{
+        animal: 'cat1',
+        position: [10, 9]
+      }];
+      const current = [{
+        animal: 'cat1',
+        position: [12, 11, 2, -1]
+      }];
+
+      const expected = {conflict: true};
+
+      expect(assembleCoordinateChange(previous, current)).toEqual(expected);
+    })
   });
 
   describe('buildSnapshotOfSelectedID', () => {
@@ -297,6 +384,7 @@ ${coordinate_3}`;
         expect(item.snapshot).toEqual(buildSnapshotOfSelectedID(recordBase, item.id));
       })
     });
+
     it('should return error message when given a id not existed', ()=> {
       const recordBase = [
         {
@@ -338,6 +426,5 @@ ${coordinate_3}`;
       };
       expect(buildSnapshotOfSelectedID(recordBase, badQeury.id)).toEqual(badQeury.errorMessage);
     });
-
   });
 });
