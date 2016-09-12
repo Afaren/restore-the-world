@@ -11,7 +11,7 @@ function getSnapshot(historyData, id) {
   }
   const recordBase = buildRecordBase(records);
   if(recordBase.conflict) {
-    return 'Conflict fount at ' + recordBase.id;
+    return 'Conflict found at ' + recordBase.id;
   }
   return buildSnapshotOfSelectedID(recordBase, id);
 }
