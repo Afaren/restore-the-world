@@ -10,6 +10,9 @@ function getSnapshot(historyData, id) {
     return 'Invalid format';
   }
   const recordBase = buildRecordBase(records);
+  if(recordBase.conflict) {
+    return 'Conflict fount at ' + recordBase.id;
+  }
   return buildSnapshotOfSelectedID(recordBase, id);
 }
 
@@ -53,7 +56,9 @@ function buildRecordBase(records) {
     previous = getLastCoordinateInBase();
     current = getCurrentCoordinateInRecords();
     assembly = assembleCoordinateChange(previous, current);
-
+    if (assembly.conflict) {
+      return {conflict: assembly.conflict, id: records[i].id};
+    }
     base.push(Object.assign({}, records[i], {coordinateChange: assembly}));
   }
   return base;
@@ -69,18 +74,23 @@ function buildRecordBase(records) {
 
 function assembleCoordinateChange(previous, current) {
   let previousClone = deepClone(previous);
-  let previousChangeAssembly = previousClone.reduce((acc, cur) => {
-    let exist = current.find(v => v.animal === cur.animal);
+
+  let previousChangeAssembly = [];
+  for (let each of previousClone) {
+    let exist = current.find(v => v.animal === each.animal);
     if (exist) {
       let p = exist.position;
-      exist.position = [p[0] + p[2], p[1] + p[3]];
-      acc.push(exist);
+      if (hasConflict(each, exist)) {
+        return {conflict: true};
+      } else {
+        exist.position = [p[0] + p[2], p[1] + p[3]];
+        previousChangeAssembly.push(exist);
+      }
     }
     else {
-      acc.push(cur);
+      previousChangeAssembly.push(each);
     }
-    return acc;
-  }, []);
+  }
 
   const assembly = current.reduce((acc, cur) => {
     let found = previousChangeAssembly.find(v => v.animal === cur.animal);
@@ -91,6 +101,11 @@ function assembleCoordinateChange(previous, current) {
   }, []);
 
   return assembly;
+
+  function hasConflict(current, previous) {
+    const cp = current.position, pp = previous.position;
+    return cp[0] !== pp[0] && cp[1] !== cp[1];
+  }
 
   function deepClone(arr) {
     return JSON.parse(JSON.stringify(arr));

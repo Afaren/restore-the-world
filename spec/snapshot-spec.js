@@ -113,7 +113,7 @@ ${coordinate_3}`;
   });
 
   describe('buildRecordBase', ()=> {
-    it('should return a recordBase when given records', ()=> {
+    it('should return a recordBase when given valid records', ()=> {
 
       const records = [{
         id: id_1,
@@ -184,6 +184,46 @@ ${coordinate_3}`;
       expect(buildRecordBase(records)).toEqual(expectedRecordBase);
 
     });
+
+    it('should report Error Message when given invalid records', ()=> {
+
+      const records = [{
+        id: id_1,
+        time: time_1,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [10, 9]
+          }
+        ]
+      }, {
+        id: id_2,
+        time: time_2,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [10, 9, 2, -1]
+          }, {
+            animal: 'cat2',
+            position: [2, 3]
+          }
+        ]
+      }, {
+        id: id_3,
+        time: time_3,
+        coordinateChange: [
+          {
+            animal: 'cat1',
+            position: [11, 8, 3, 4]
+          }
+        ]
+      }];
+
+      const errMsg = `Conflict found at ${id_3}`;
+
+      expect(buildRecordBase(records)).toEqual(errMsg);
+    });
+
   });
 
   describe('assembleCoordinateChange', ()=> {
@@ -255,6 +295,7 @@ ${coordinate_3}`;
 
       expect(assembleCoordinateChange(previous, current)).toEqual(expectedCoordinateChange);
     })
+
 
   });
 
