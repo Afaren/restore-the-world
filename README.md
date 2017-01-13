@@ -1,4 +1,4 @@
-# ThoughtWorks Interview Homework
+#  Homework
 
 ## 安装依赖
 运行 `npm install` 安装工程所需依赖
